@@ -51,7 +51,8 @@ namespace DIO.Bank
         }
         public override string ToString()
         {
-            return $"Agencia: {Agencia} / Numero: {NumeroConta}\n" +
+            return $"{TipoConta}\n" +
+                $"Agencia: {Agencia} / Numero: {NumeroConta}\n" +
                 $"Nome: {Nome}\n" +
                 $"Saldo: R${Saldo}\n" +
                 $"Crédito: R${Credito}";

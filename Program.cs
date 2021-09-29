@@ -59,59 +59,93 @@ namespace DIO.Bank
             int numeroConta = int.Parse(Console.ReadLine());
 
             int index = listaContas.FindIndex(x => x.NumeroConta == numeroConta && x.Agencia == agencia);
+            if(index == -1)
+            {
+                throw new ModelException("Conta não encontrada!");
+            }
             return index;
         }
 
 
         private static void Sacar()
         {
-            int index = EncontraConta();
+            try
+            {
+                int index = EncontraConta();
 
-            Console.Write("Digite o valor que deseja sacar: ");
-            double valor = double.Parse(Console.ReadLine());
+                Console.Write("Digite o valor que deseja sacar: ");
+                double valor = double.Parse(Console.ReadLine());
 
-            listaContas[index].Sacar(valor);
+                listaContas[index].Sacar(valor);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Erro: " + e.Message);
+            }
             
         }
 
         private static void Trasferir()
         {
-            Console.Write("Digite o valor á ser transferido: ");
-            Console.WriteLine();
-            double valor = double.Parse(Console.ReadLine());
-            Console.WriteLine("Digite os dados da sua conta");
-            int indexContaOrigem = EncontraConta();
+            try
+            {
+                Console.Write("Digite o valor á ser transferido: ");
+                Console.WriteLine();
+                double valor = double.Parse(Console.ReadLine());
+                Console.WriteLine("Digite os dados da sua conta");
+                int indexContaOrigem = EncontraConta();
 
-            Console.WriteLine("Digite a conta para onde deseja trasferir");
-            Console.WriteLine();
-            int index = EncontraConta();
-            Conta contaDestino = listaContas[index];
+                Console.WriteLine("Digite a conta para onde deseja trasferir");
+                Console.WriteLine();
+                int index = EncontraConta();
+                Conta contaDestino = listaContas[index];
 
 
-            listaContas[indexContaOrigem].Transferir(valor: valor, contaDestino: contaDestino);
+                listaContas[indexContaOrigem].Transferir(valor: valor, contaDestino: contaDestino);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Erro: " + e.Message);
+            }
+            
         }
 
         private static void InserirConta()
         {
-            Console.WriteLine("Inserir nova conta");
-            Console.Write("Digite 1 para Conta Fisica ou 2 para Conta Juridica: ");
-            int entradaTipoConta = int.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("Inserir nova conta");
+                Console.Write("Digite 1 para Conta Fisica ou 2 para Conta Juridica: ");
+                int entradaTipoConta = int.Parse(Console.ReadLine());
+                if(entradaTipoConta != null)
+                {
+                    throw new ModelException("Tipo de conta inexistente");
+                }
 
-            Console.Write("Digite o numero da agencia: ");
-            int agencia = int.Parse(Console.ReadLine());
+                Console.Write("Digite o numero da agencia: ");
+                int agencia = int.Parse(Console.ReadLine());
 
-            Console.Write("Digite o numero da conta: ");
-            int numeroConta = int.Parse(Console.ReadLine());
+                Console.Write("Digite o numero da conta: ");
+                int numeroConta = int.Parse(Console.ReadLine());
 
-            Console.Write("Digite o nome do Cliente: ");
-            string nome = Console.ReadLine();
+                Console.Write("Digite o nome do Cliente: ");
+                string nome = Console.ReadLine();
 
-            Console.Write("Digite o crédito: ");
-            double credito = double.Parse(Console.ReadLine());
+                Console.Write("Digite o crédito: ");
+                double credito = double.Parse(Console.ReadLine());
 
-            Conta novaConta = new Conta(tipoConta: (TipoConta)entradaTipoConta, agencia: agencia,
-                numeroConta: numeroConta, nome: nome, credito: credito);
-            listaContas.Add(novaConta);
+                Conta novaConta = new Conta(tipoConta: (TipoConta)entradaTipoConta, agencia: agencia,
+                    numeroConta: numeroConta, nome: nome, credito: credito);
+                listaContas.Add(novaConta);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Erro: " + e.Message);
+            }
+           
         }
 
         private static void ListarContas()
