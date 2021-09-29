@@ -9,23 +9,24 @@ namespace DIO.Bank
     public class Conta
     {
 
-        private int Agencia { get; set; }
-        private int NumeroConta { get; set; }
+        public int Agencia { get; private set; }
+        public int NumeroConta { get; private set; }
 
         private string Nome { get; set; }
         private TipoConta TipoConta { get; set; }
         private double Saldo { get; set; }
         private double Credito { get; set; }
 
-        public Conta(TipoConta tipoConta, int agencia, int numeroConta, string nome, double saldo, double credito)
+        public Conta(TipoConta tipoConta, int agencia, int numeroConta, string nome, double credito)
         {
             Agencia = agencia;
             NumeroConta = numeroConta;
             Nome = nome;
             TipoConta = tipoConta;
-            Saldo = saldo;
+            Saldo = 0;
             Credito = credito;
         }
+        
         public bool Sacar(double valor)
         {
             if(Saldo - valor < (Credito * -1))
@@ -52,7 +53,8 @@ namespace DIO.Bank
         {
             return $"Agencia: {Agencia} / Numero: {NumeroConta}\n" +
                 $"Nome: {Nome}\n" +
-                $"Saldo: R${Saldo}";
+                $"Saldo: R${Saldo}\n" +
+                $"Crédito: R${Credito}";
         }
     }
 }
